@@ -28,6 +28,9 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.io.IOException;
 import java.io.StringWriter;
 
@@ -99,6 +102,28 @@ public final class JsonMapper {
         } catch (final Exception e) {
             throw new RuntimeException("error trying to parse json [" + json + ']', e);
         }
+    }
+
+    /**
+     * Return a {@link JsonNode} for the passed in JSON string.
+     *
+     * @param json the string to be parsed.
+     * @return JsonNode the JsonNode representing the passed-in JSON string.
+     */
+    public static JsonNode asJsonNode(final String json) {
+        try {
+            return om.readTree(json);
+        } catch (final IOException e) {
+            throw new RuntimeException("error trying to parse json [" + json + ']', e);
+        }
+    }
+
+    public static ObjectNode newObjectNode() {
+        return om.createObjectNode();
+    }
+
+    public static ArrayNode newArrayNode() {
+        return om.createArrayNode();
     }
 
     private static class DocumentDeserializer extends JsonDeserializer<Document> {
