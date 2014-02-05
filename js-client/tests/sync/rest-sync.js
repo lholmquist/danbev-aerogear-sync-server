@@ -159,7 +159,7 @@
 
     function fromJson( str ) {
         var json = JSON.parse( str );
-        return { id: json.id, rev: json.rev, content: JSON.parse( json.content ) };
+        return { id: json.documentId, rev: json.rev, content: JSON.parse( json.content ) };
     }
 
     function isArray( obj ) {
